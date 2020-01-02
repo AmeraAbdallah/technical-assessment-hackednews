@@ -100,7 +100,7 @@ class App extends React.Component {
         let {view} = this.state;
         return(
             <div>
-                <div>
+                <div id= 'header'>
                     <button onClick = {() => this.setState(() => ({view: 'tTS'}))}>Top Ten Stories</button>
                     <button onClick = {() => this.setState(() => ({view: 'tTA'}))}>Top Ten Authors</button>
                     <button onClick = {() => this.setState(() => ({view: 'aS'}))}>Author Search</button>
