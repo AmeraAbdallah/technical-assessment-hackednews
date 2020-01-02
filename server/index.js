@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/hackednews');
 app.use(bodyParser.json());
 
 // UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));

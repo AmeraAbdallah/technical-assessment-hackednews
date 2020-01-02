@@ -2,7 +2,7 @@ module.exports = [
   {
     "by": {
       "about": "My name is Jim",
-      "created": 1380346003,
+      "created": 1380346003, //not json
       "id": "jimarcey",
       "karma": 319,
       "submitted": [
@@ -14,7 +14,7 @@ module.exports = [
     "descendants": 119,
     "id": 14257744,
     "kids": [
-      14259347,
+      14259347, 
       14258603,
       14260256,
       14259293,

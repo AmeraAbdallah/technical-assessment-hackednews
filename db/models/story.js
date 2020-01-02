@@ -13,21 +13,20 @@ var storySchema = mongoose.Schema({
 var StoryModel = mongoose.model('Story', storySchema);
 
 // findAll retrieves all stories
-function findAll(callback) {
-  StoryModel.find({}, callback);
+function findAll() {
+  return StoryModel.find({});
 }
 
 // findOne will retrieve the story associated with the given id
-function findOne(id, callback) {
-  StoryModel.find({id: id}, callback);
+function findOne(id) {
+  return StoryModel.find({id: id});
 }
 
 // insertOne inserts a story into the db
-function insertOne(story, callback) {
-  StoryModel.create(story, callback);
+function insertOne(story) {
+  return StoryModel.create(story);
 }
 
 exports.findOne = findOne;
 exports.findAll = findAll;
 exports.insertOne = insertOne;
-
