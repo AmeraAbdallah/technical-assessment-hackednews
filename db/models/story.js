@@ -4,7 +4,8 @@ const storySchema = mongoose.Schema({
   id: String,
   by: String,
   title: String,
-  score: Number
+  score: Number,
+  kids: [Number]
 });
 
 let StoryModel = mongoose.model('Story', storySchema);

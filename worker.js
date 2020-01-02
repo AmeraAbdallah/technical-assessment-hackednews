@@ -34,7 +34,6 @@ const getJSONFromHackerNews = function (url, callback) {
 getJSONFromHackerNews(topStoriesURL, function(err, data) {
   console.log(err, 'err, expect to be null');
   console.log(data, 'data, expect to be ids for top 500 stories');
-  let promisedStories = [];
   for(let i = 0; i < 10; i++){
     fetch(`https://hacker-news.firebaseio.com/v0/item/${data[i]}.json`, {
       method: 'GET',

@@ -19,7 +19,8 @@ const seedDb =  async function(data) {
       id: data[i].id,
       title: data[i].title,
       score: data[i].score,
-      by: data[i].by.id
+      by: data[i].by.id,
+      kids: data[i].kids
     };
     try{
       let doc = await Stories.insertOne(storyData);
