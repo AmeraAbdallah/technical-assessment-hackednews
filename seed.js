@@ -1,11 +1,19 @@
-var data = require('./seed_data.js');
-var mongoose = require('mongoose');
-var Stories = require('./db/models/story.js');
+let data = require('./seed_data.js');
+const mongoose = require('mongoose');
+const Stories = require('./db/models/story.js');
+const Authors = require('./db/models/author');
 
 mongoose.connect('mongodb://localhost/hackednews');
 
-var seedDb =  async function(data) {
-  // your code here!
+const seedDb =  async function(data) {
+
+  try{
+    await Stories.removeAll();
+    await Authors.removeAll();
+  }catch(err){
+    console.log(err)
+  }
+
   for(let i = 0; i < data.length; i++){
     let storyData = {
       id: data[i].id,
@@ -15,6 +23,7 @@ var seedDb =  async function(data) {
     };
     try{
       let doc = await Stories.insertOne(storyData);
+      let authorDoc = await Authors.insertOne(data[i].by);
     }catch(err){
       console.log(err);
     }

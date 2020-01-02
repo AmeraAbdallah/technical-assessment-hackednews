@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var storySchema = mongoose.Schema({
+const storySchema = mongoose.Schema({
   id: {
     type: Number,
     unique: true
@@ -10,7 +10,12 @@ var storySchema = mongoose.Schema({
   score: Number
 });
 
-var StoryModel = mongoose.model('Story', storySchema);
+let StoryModel = mongoose.model('Story', storySchema);
+
+//delete all stories
+function removeAll(){
+  return StoryModel.remove({});
+}
 
 // findAll retrieves all stories
 function findAll() {
@@ -30,3 +35,4 @@ function insertOne(story) {
 exports.findOne = findOne;
 exports.findAll = findAll;
 exports.insertOne = insertOne;
+exports.removeAll = removeAll;

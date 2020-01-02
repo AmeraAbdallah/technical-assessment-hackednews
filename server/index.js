@@ -1,9 +1,10 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var storyRouter = require('./routers/story.js');
-var mongoose = require('mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
+const storyRouter = require('./routers/story.js');
+const authorRouter = require('./routers/author');
+const mongoose = require('mongoose');
 
-var app = express();
+let app = express();
 
 mongoose.connect('mongodb://localhost/hackednews');
 
@@ -17,6 +18,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // app.use(express.static(__dirname + '/../node_modules'));
 
 app.use('/api/story', storyRouter);
+app.use('/api/author', authorRouter);
 
 app.listen(8000, function() {
   console.log('listening on port 8000');
