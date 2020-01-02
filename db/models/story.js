@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const storySchema = mongoose.Schema({
-  id: {
-    type: Number,
-    unique: true
-  },
+  id: String,
   by: String,
   title: String,
   score: Number

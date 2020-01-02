@@ -1,5 +1,8 @@
-var mongoose = require('mongoose');
-var request = require('request');
+const mongoose = require('mongoose');
+const request = require('request');
+const Story = require('./db/models/story');
+const Author = require('./db/models/author');
+const fetch = require('node-fetch');
 
 mongoose.connect('mongodb://localhost/hackednews');
 // In this file, build out a worker that will populate the database
@@ -9,15 +12,14 @@ mongoose.connect('mongodb://localhost/hackednews');
 // Here is an example of getting the top 500 stories from the API
 // and logging them to the console.
 // You are not required to use this code (though you may).
-var topStoriesURL = 'https://hacker-news.firebaseio.com/v0/topstories.json';
-
-var isJSONResponse = function(headers) {
+const topStoriesURL = 'https://hacker-news.firebaseio.com/v0/topstories.json'; 
+const isJSONResponse = function(headers) {
   return headers['content-type'].includes('json');
 };
 
-var getJSONFromHackerNews = function (url, callback) {
+const getJSONFromHackerNews = function (url, callback) {
   request.get(url, function(err, response, body) {
-    var data = null;
+    let data = null;
     if (err) {
       callback(err, null);
     } else if (!isJSONResponse(response.headers)) {
@@ -32,5 +34,28 @@ var getJSONFromHackerNews = function (url, callback) {
 getJSONFromHackerNews(topStoriesURL, function(err, data) {
   console.log(err, 'err, expect to be null');
   console.log(data, 'data, expect to be ids for top 500 stories');
-  mongoose.disconnect();
+  let promisedStories = [];
+  for(let i = 0; i < 10; i++){
+    fetch(`https://hacker-news.firebaseio.com/v0/item/${data[i]}.json`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      Story.insertOne(data);
+      fetch(`https://hacker-news.firebaseio.com/v0/user/${data.by}.json?print=pretty`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => Author.insertOne(data))
+      .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+    // mongoose.disconnect();
+  }
 });

@@ -16,7 +16,7 @@ const TopTen = ({stories}) => (
       </thead>
       <tbody>
       {
-        stories.slice(0, 10).map(story => (
+        stories.slice(stories.length - 10, stories.length).map(story => (
           <tr key = {story.id}>
               <td>{story.title}</td>
               <td>{story.id}</td>
