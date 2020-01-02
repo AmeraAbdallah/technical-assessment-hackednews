@@ -19,7 +19,7 @@ const TopTen = ({stories}) => (
         stories.slice(stories.length - 10, stories.length).map(story => (
           <tr key = {story.id}>
               <td>{story.title}</td>
-              <td>{story.id}</td>
+              <td>{story.by}</td>
               <td>{story.score}</td>
           </tr>
         ))
